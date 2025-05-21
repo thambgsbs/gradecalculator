@@ -35,11 +35,11 @@ lblStudentName = new JLabel("Student Name:");
 txtStudentName = new JTextField(30);
 lblStudentNo = new JLabel("Student No:");
 txtStudentNo = new JTextField(30);
-lblMS1 = new JLabel("Milestone 1:");
+lblMS1 = new JLabel("Milestone 1 (0-25):");
 txtMS1 = new JTextField(10);
-lblMS2 = new JLabel("Milestone 2:");
+lblMS2 = new JLabel("Milestone 2 (0-40):");
 txtMS2 = new JTextField(10);
-lblTA = new JLabel("Terminal Assessment:");
+lblTA = new JLabel("Terminal Assessment (0-35):");
 txtTA = new JTextField(10);
 calculateButton = new JButton("Calculate");
 
@@ -101,19 +101,47 @@ add(panel);
 // Add an ActionListener to the button
 calculateButton.addActionListener(new ActionListener() {
 public void actionPerformed(ActionEvent e) {
+    try{
+    
 // Instantiate Student class
 Student stud = new Student();
 
 // Assign textfield values to stud object
 stud.setStudentName(txtStudentName.getText());
 stud.setStudentNumber(txtStudentNo.getText());
-stud.setQuiz1(Float.parseFloat(txtMS1.getText()));
-stud.setQuiz2(Float.parseFloat(txtMS2.getText()));
-stud.setQuiz3(Float.parseFloat(txtTA.getText()));
+
+float MS1 = Float.parseFloat(txtMS1.getText());
+float MS2 = Float.parseFloat(txtMS2.getText());
+float TA = Float.parseFloat(txtTA.getText());
+
+
+// Validate ranges via setters
+stud.setQuiz1(MS1); // 0–25
+stud.setQuiz2(MS2); // 0–40
+stud.setQuiz3(TA);  // 0–35
+
 
 // Instantiate and call GradeOutput class
 GradeOutput output = new GradeOutput(stud);
 output.setVisible(true);
+
+
+} catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Please enter valid numeric values for all scores.",
+                "Invalid Input",
+                JOptionPane.ERROR_MESSAGE
+            );
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(
+                null,
+                ex.getMessage(), // Shows specific range error
+                "Input Out of Range",
+                JOptionPane.ERROR_MESSAGE
+            );
+
+}
 }
 });
 }   

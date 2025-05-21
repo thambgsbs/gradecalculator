@@ -62,15 +62,24 @@ studentName = studName;
 }
 
 public void setQuiz1(float q1) {
+    if (q1 < 0 || q1 > 25) {
+        throw new IllegalArgumentException("MS1 must be between 0 and 25.");
+    }
 MS1 = q1;
 }
 
 public void setQuiz2(float q2) {
-MS2 = q2;
+    if (q2 < 0 || q2 > 40) {
+        throw new IllegalArgumentException("MS2 must be between 0 and 40.");
+    }
+    MS2 = q2;
 }
 
 public void setQuiz3(float q3) {
-TA = q3;
+    if (q3 < 0 || q3 > 35) {
+        throw new IllegalArgumentException("TA must be between 0 and 35.");
+    }
+    TA = q3;
 }
 
 //methods
